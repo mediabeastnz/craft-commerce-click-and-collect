@@ -1,0 +1,46 @@
+{
+    "name": "mediabeastnz/craft-commerce-click-and-collect",
+    "description": "Click And Collect plugin for Craft Commerce 2",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "commerce",
+        "craftcms",
+        "craft-plugin",
+        "click and collect",
+        "collect",
+        "store pickup",
+        "instore"
+    ],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Myles Derham",
+            "homepage": "https://www.mylesderham.dev/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "mediabeastnz\\ClickAndCollect\\": "src/"
+        }
+    },
+    "support": {
+      "docs": "https://github.com/mediabeastnz/craft-commerce-click-and-collect/blob/master/README.md",
+      "issues": "https://github.com/mediabeastnz/craft-commerce-click-and-collect/issues"
+    },
+    "extra": {
+        "name": "Click and Collect",
+        "handle": "click-and-collect",
+        "hasCpSettings": true,
+        "hasCpSection": true,
+        "changelogUrl": "https://raw.githubusercontent.com/mediabeastnz/craft-commerce-click-and-collect/master/CHANGELOG.md",
+        "components": {
+            "ClickAndCollectService": "mediabeastnz\\ClickAndCollect\\services\\ClickAndCollectService"
+        },
+        "class": "mediabeastnz\\ClickAndCollect\\ClickAndCollect"
+    }
+}

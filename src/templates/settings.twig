@@ -1,0 +1,77 @@
+{#
+/**
+ * Click And Collect plugin for Craft CMS 3.x
+ *
+ * Click And Collect Settings.twig
+ *
+ * @author    Myles Derham
+ * @copyright Copyright (c) 2019 Myles Derham
+ * @link      https://www.mylesderham.dev/
+ * @package   ClickAndCollect
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% set selectedSubnavItem = 'settings' %}
+{% set fullPageForm = true %}
+
+{% set content %}
+
+{% namespace 'settings' %}
+
+{{ forms.textField({
+    first: true,
+    label: "Plugin Name",
+    name: 'pluginName',
+    value: settings.pluginName,
+    required: true,
+    placeholder: 'Click & Collect',
+    instructions: 'Plugin nickname for sidebar',
+    errors: settings.getErrors('pluginName')
+}) }}
+
+{# {{ forms.selectField({
+    label: "Shipping Method Status",
+    name: 'shippingMethodEnabled',
+    instructions: 'This is the handle of the Shipping method that will be used for Click & Collect',
+    options: {
+        1 : 'On',
+        0 : 'Off'
+    },
+}) }} #}
+
+{{ forms.textField({
+    label: "Shipping Method Name",
+    name: 'shippingMethodName',
+    value: settings.shippingMethodName,
+    required: true,
+    placeholder: 'Pickup in-store',
+    instructions: 'This is the name of the Shipping method that will be used for Click & Collect',
+    errors: settings.getErrors('shippingMethodName')
+}) }}
+
+{{ forms.textField({
+    label: "Shipping Method Handle",
+    name: 'shippingMethodHandle',
+    value: settings.shippingMethodHandle,
+    required: true,
+    placeholder: 'pickup-in-store',
+    instructions: 'This is the handle of the Shipping method that will be used for Click & Collect',
+    errors: settings.getErrors('shippingMethodHandle')
+}) }}
+
+{{ forms.textField({
+    label: "Stores Field Handle",
+    name: 'storeFieldHandle',
+    value: settings.storeFieldHandle,
+    required: true,
+    placeholder: 'selectedCommerceStore',
+    instructions: 'This is the handle of the custom field that you have used in your Order fields.',
+    errors: settings.getErrors('storeFieldHandle')
+}) }}
+
+{% endnamespace %}
+
+{% endset %}

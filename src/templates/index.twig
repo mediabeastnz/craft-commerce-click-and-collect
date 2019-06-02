@@ -1,0 +1,64 @@
+
+{% extends "_layouts/cp" %}
+{% set title = "Click & Collect" %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <a href="{{ url('click-and-collect/stores/new') }}"
+           class="btn submit add icon">{{ 'New Store'|t('click-and-collect') }}</a>
+    </div>
+{% endblock %}
+
+{% set selectedSubnavItem = 'stores' %}
+
+{% set pluginCpUrl = url('click-and-collect') %}
+
+{% block content %}
+
+    <h2>{{ "Stores"|t('click-and-collect') }}</h2>
+
+    <div id="no-stores"{% if stores|length %} class="hidden"{% endif %}>
+        <p>{{ "No stores exist yet."|t('click-and-collect') }}</p>
+    </div>
+
+    {% if stores|length %}
+        <table id="stores" class="data fullwidth collapsible">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'Title'|t('click-and-collect') }}</th>
+                <th scope="col">{{ 'Address'|t('click-and-collect') }}</th>
+                <th scope="col">{{ 'City'|t('click-and-collect') }}</th>
+                <td class="thin"></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for store in stores %}
+                <tr data-id="{{ store.id }}" data-name="{{ store.title }}">
+                    <th scope="row" data-title="{{ 'Title'|t('click-and-collect') }}"><a href="{{ url('click-and-collect/stores/'~store.id) }}">{{ store.title }}</a>
+                    </th>
+                    <td data-title="{{ 'Address'|t('click-and-collect') }}">{{ store.address.address1 }}</td>
+                    <td data-title="{{ 'City'|t('click-and-collect') }}">{{ store.address.city }}</td>
+                    <td class="thin"><a class="delete icon" title="{{ 'Delete'|t('click-and-collect') }}" role="button"></a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="buttons">
+        <a href="{{ url('click-and-collect/stores/new') }}"
+           class="btn submit add icon">{{ 'New store'|t('click-and-collect') }}</a>
+    </div>
+
+{% endblock %}
+
+
+{% js %}
+    var adminTable = new Craft.AdminTable({
+    tableSelector: '#stores',
+    noObjectsSelector: '#no-stores',
+    confirmDeleteMessage:  Craft.t('click-and-collect', 'Are you sure you want to delete “{name}”?') ,
+    deleteAction: 'click-and-collect/base/delete'
+    });
+{% endjs %}

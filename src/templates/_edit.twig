@@ -1,0 +1,135 @@
+{% extends "_layouts/cp" %}
+
+{% set selectedSubnavItem = "dashboard" %}
+
+{# {% set crumbs = [
+    { label: "Promotions"|t('commerce'), url: url('commerce/promotions') },
+    { label: "Discounts"|t('commerce'), url: url('commerce/promotions/discounts') },
+] %} #}
+
+{% set fullPageForm = true %}
+
+{% import "_includes/forms" as forms %}
+
+{# {% set tabs = {
+    0: {'label':'Store'|t('click-andcollect'),'url':'#store','class':storeClasses},
+    1: {'label':'Coupon'|t('commerce'),'url':'#coupon','class':couponClasses},
+    2: {'label':'Conditions'|t('commerce'),'url':'#conditions','class':conditionsClasses},
+    3: {'label':'Amounts'|t('commerce'),'url':'#amounts'}
+} %} #}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="click-and-collect/base/save">
+    {{ redirectInput('click-and-collect') }}
+    {% if id %}
+        <input type="hidden" name="id" value="{{ id }}">
+    {% endif %}
+    {% if store.id %}
+        <input type="hidden" name="addressId" value="{{ store.id }}">
+    {% endif %}
+
+    <div id="store">
+
+        {{ forms.textField({
+            first: true,
+            label: "Title"|t('app'),
+            instructions: "Name of the store"|t('click-and-collect'),
+            id: 'title',
+            name: 'title',
+            value: store.title,
+            errors: store.getErrors('title'),
+            autofocus: true,
+            required: true,
+        }) }}
+
+        {{ forms.textField({
+            label: 'Address 1'|t('commerce'),
+            id: 'address1',
+            name: 'address1',
+            required: true,
+            placeholder: store.address1,
+            value: store.address1,
+            errors: store.getErrors('address1'),
+        }) }}
+
+        {{ forms.textField({
+            label: 'Address 2'|t('commerce'),
+            id: 'address2',
+            name: 'address2',
+            placeholder: store.address2,
+            value: store.address2,
+            errors: store.getErrors('address2'),
+        }) }}
+
+        {{ forms.textField({
+            label: 'City'|t('commerce'),
+            id: 'city',
+            name: 'city',
+            required: true,
+            placeholder: store.city,
+            value: store.city,
+            errors: store.getErrors('city'),
+        }) }}
+
+        {{ forms.textField({
+            label: 'Zip Code'|t('commerce'),
+            id: 'zipCode',
+            name: 'zipCode',
+            placeholder: store.zipCode,
+            value: store.zipCode,
+            errors: store.getErrors('zipCode'),
+        }) }}
+
+        <div class="countrySelector field">
+            {{ forms.selectField({
+                label: "Country"|t('commerce'),
+                id: 'countryId',
+                name: 'countryId',
+                value: store.countryId,
+                options: craft.commerce.countries.allCountriesAsList,
+                errors: store.getErrors('countryId'),
+                required: true,
+                class: 'fullwidth'
+            }) }}
+        </div>
+
+        {{ forms.selectField({
+            label: 'State'|t('commerce'),
+            id: 'stateValue',
+            name: 'stateValue',
+            value: store.stateValue,
+            errors: store.getErrors('stateValue'),
+            class: 'selectize fullwidth'
+        }) }}
+
+        {{ forms.textField({
+            label: 'Phone Number'|t('commerce'),
+            id: 'phone',
+            name: 'phone',
+            placeholder: store.phone,
+            value: store.phone,
+            errors: store.getErrors('phone'),
+        }) }}
+
+    </div>
+
+    {% js %}
+        window.states = {{ craft.commerce.states.allStates|values|json_encode|raw }};
+
+        // add any custom state value that could not be in the standard list of states.
+        window.states.push({'name': '{{ store.stateValue }}', 'id': '{{ store.stateValue }}'});
+
+        $('#stateValue-field').find('select').selectize({
+            valueField: 'id',
+            create: true,
+            items: ['{{ store.stateValue }}'],
+            options: window.states,
+            labelField: 'name',
+            searchField: ['name'],
+            dropdownParent: 'body',
+            inputClass: 'selectize-input text',
+            allowEmptyOption: false
+        });
+    {% endjs %}
+{% endblock %}
