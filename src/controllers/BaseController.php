@@ -47,6 +47,8 @@ class BaseController extends Controller
 
     public function actionSettings()
     {
+        $this->requireAdmin();
+
         $settings = ClickAndCollect::$plugin->getSettings();
 
         return $this->renderTemplate('click-and-collect/settings', array(

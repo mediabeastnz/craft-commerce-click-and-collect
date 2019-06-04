@@ -133,20 +133,26 @@ class ClickAndCollect extends Plugin
         $navItem = parent::getCpNavItem();
         $navItem['label'] = $this->getPluginName();
 
-        // $navItem['subnav']['dashboard'] = [
-        //     'label' => Craft::t('app', 'Dashboard'),
-        //     'url' => 'click-and-collect'
-        // ];
+        if ( Craft::$app->getConfig()->general->allowAdminChanges) {
 
-        $navItem['subnav']['stores'] = [
-            'label' => Craft::t('app', 'Stores'),
-            'url' => 'click-and-collect'
-        ];
+            // $navItem['subnav']['dashboard'] = [
+            //     'label' => Craft::t('app', 'Dashboard'),
+            //     'url' => 'click-and-collect'
+            // ];
 
-        $navItem['subnav']['settings'] = [
-            'label' => Craft::t('app', 'Settings'),
-            'url' => 'click-and-collect/settings'
-        ];
+            $navItem['subnav']['stores'] = [
+                'label' => Craft::t('app', 'Stores'),
+                'url' => 'click-and-collect'
+            ];
+
+            $navItem['subnav']['settings'] = [
+                'label' => Craft::t('app', 'Settings'),
+                'url' => 'click-and-collect/settings'
+            ];
+
+        }
+
+        $navItem['url'] = 'click-and-collect';
 
         return $navItem;
     }
