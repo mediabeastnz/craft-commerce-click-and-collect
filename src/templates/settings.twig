@@ -19,6 +19,9 @@
 
 {% set content %}
 
+{{ actionInput('plugins/save-plugin-settings') }}
+<input type="hidden" name="pluginHandle" value="click-and-collect" />
+
 {% namespace 'settings' %}
 
 {{ forms.textField({
