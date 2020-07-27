@@ -33,7 +33,7 @@ class StoreRecord extends ActiveRecord
         return '{{%commerce_stores}}';
     }
 
-    public function getAddress(): object
+    public function getAddress()
     {
         return Commerce::getInstance()->getAddresses()->getAddressById($this->addressId);
     }
