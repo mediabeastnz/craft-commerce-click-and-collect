@@ -65,7 +65,7 @@ class PickupMethod extends Model implements ShippingMethodInterface
      */
     public function getId()
     {
-        throw new NotImplementedException();
+        return null;
     }
 
     /**

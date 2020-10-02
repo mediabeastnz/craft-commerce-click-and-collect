@@ -52,7 +52,7 @@ class StoreModel extends Model
     // Public Methods
     // =========================================================================
 
-    public function getAddress(): object
+    public function getAddress()
     {
         return Commerce::getInstance()->getAddresses()->getAddressById($this->addressId);
     }
